@@ -5,7 +5,6 @@ const socket = io(); //lO PUEDO INSTANCIAR POR QUE PREVIAMENTE POR CDN LO ESTABL
 //Se hace de la siguiente manera:
 
 
-
 const btnAgregar = document.getElementById("btnAgregar")
 const btnEliminar = document.getElementById("btnEliminar")
 
@@ -48,16 +47,15 @@ btnEliminar.addEventListener('click', () => {
 
 });
 
-socket.on("mostrarEliminado",   (mensaje)=>{
+socket.on("mostrarEliminado", (mensaje)=>{
     
-    Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: `${mensaje}`,
-        showConfirmButton: false,
-        timer: 3000 // Aumentar a 3000 milisegundos (3 segundos) o más
-    });
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: `${mensaje}`,
+            showConfirmButton: false,
+            timer: 3000 // Aumentar a 3000 milisegundos (3 segundos) o más
+        });
 
-    
 })
 

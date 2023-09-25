@@ -47,7 +47,15 @@ productRouter.get('/', async (req, res) => {
     try {
         //const prods = await productModel.find().limit(limitProd)
         const resultado = await productModel.paginate(filter, {limit: limitProd, sort: { price: sortProd}, page: pageProd})
-        res.status(200).send({ respuesta: 'OK', mensaje: resultado })
+        
+        const productos = resultado.docs.map(producto => producto.toObject());
+        //res.status(200).send({ respuesta: 'OK', mensaje: resultado })
+       
+        res.status(200).render("productos", {
+            productos,
+            css: "style.css",
+            script: "scriptProducto.js"
+        })
     } catch (error) {
         res.status(400).send({ respuesta: 'Error en consultar productos', mensaje: error })
     }
@@ -57,9 +65,16 @@ productRouter.get('/:id', async (req, res) => {
     const { id } = req.params
 
     try {
-        const prod = await productModel.findById(id)
+        const prodBuscado= await productModel.findById(id)
+        const prod = prodBuscado._doc
         if (prod)
-            res.status(200).send({ respuesta: 'OK', mensaje: prod })
+            //res.status(200).send({ respuesta: 'OK', mensaje: prod })
+            res.status(200).render('producto', {
+                prod,
+                css: 'bloqueDeProducto.css',
+                script: 'scriptProducto.js',
+                title: 'Products'
+            });
             
         else
             res.status(404).send({ respuesta: 'Error en consultar Producto', mensaje: 'Not Found' })

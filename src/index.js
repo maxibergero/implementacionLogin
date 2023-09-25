@@ -88,6 +88,8 @@ app.use('/api/sessions', sessionRouter)
 //Configuración carpeta estática
 app.use('/', express.static(path.join(__dirname, '/public')))
 
+
+
 //configuración handlebars
 app.engine('handlebars', engine())
 app.set('view engine', 'handlebars')
@@ -135,7 +137,8 @@ app.get('/realtimehandlebars', async (req, res) => {
         res.render('realTimeProducts', {
             data,
             css: 'style.css',
-            tittle: 'Products'
+            tittle: 'Products',
+            script: 'script.js'
         }); // Renderiza la página HTML y pasa los datos como contexto
     } catch (error) {
         console.error(error);
@@ -184,6 +187,5 @@ io.on('connection', (socket) => {
    
     
 })
-
 
 
